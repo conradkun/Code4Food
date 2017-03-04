@@ -1,4 +1,4 @@
 {
-	"Role" : "arn:aws:iam::ACCOUNT_ID:role/LAMBDA_ROLE_NAME",
+	"Role" : "arn:aws:iam::946780677312:role/lambda_basic_execution",
 	"Region" : "eu-west-1"
 }

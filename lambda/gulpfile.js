@@ -11,7 +11,8 @@ var del = require('del'),
     package = require('./package.json'),
 /* Configurations. Note that most of the configuration is stored in
 the task context. These are mainly for repeating configuration items */
-    buildname = (package.name + '_' + package.version).replace(/[^A-Za-z0-9_-]/g, '_');
+    //buildname = (package.name + '_' + package.version).replace(/[^A-Za-z0-9_-]/g, '_');
+    buildname = "AlexaHack";
 
 /* Bump version number for package.json */
 // TODO Provide means for appending a patch id based on git commit id or md5 hash
@@ -54,7 +55,8 @@ gulp.task('deployzip', function() {
     var lambdaparams = {
         FunctionName: buildname,
         Description: package.description,
-        Role: lambdaenv.Role
+        Role: lambdaenv.Role,
+        Runtime: 'nodejs4.3'
     }, lambdaoptions = {
         region: lambdaenv.Region
     };
