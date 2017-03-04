@@ -1,8 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4588bd53-9dfd-4f0e-ae69-d0b7744db5e5" name="Default" comment="Add lambda&#10;">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/server" afterPath="" />
+    <list default="true" id="4588bd53-9dfd-4f0e-ae69-d0b7744db5e5" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/app/favicon.ico" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/.babelrc" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/.editorconfig" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/.jshintrc" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/.npmignore" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/LICENSE" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/README.md" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/app/index.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/app/index.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/config/default.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/config/production.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/dist/index.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/dist/index_bundle.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/package.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/src/app.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/src/hooks/index.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/src/index.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/src/middleware/index.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/src/middleware/logger.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/src/middleware/not-found-handler.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/src/services/authentication/index.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/src/services/index.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/src/services/user/hooks/index.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/src/services/user/index.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/test/app.test.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/test/services/user/index.test.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/webpack.config.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -175,6 +201,20 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="stackhack" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="stackhack" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="server" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
     </panes>
@@ -262,7 +302,7 @@
       <updated>1488622518247</updated>
       <workItem from="1488622520033" duration="32000" />
       <workItem from="1488633407374" duration="3720000" />
-      <workItem from="1488638657263" duration="594000" />
+      <workItem from="1488638657263" duration="638000" />
     </task>
     <task id="LOCAL-00001" summary="Add lambda&#10;">
       <created>1488633827506</created>
@@ -278,11 +318,18 @@
       <option name="project" value="LOCAL" />
       <updated>1488635388750</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Add lambda&#10;">
+      <created>1488639259289</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1488639259289</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="4346000" />
+    <option name="totallyTimeSpent" value="4390000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="30" width="3000" height="1871" extended-state="6" />
