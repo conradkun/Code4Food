@@ -1,1 +1,5 @@
 # Created by .ignore support plugin (hsz.mobi)
+/lambda/src/node_modules/
+/lambda/node_modules/
+/server/node_modules/
+/lambda/dist/

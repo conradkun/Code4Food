@@ -36,7 +36,7 @@ gulp.task('build-copysrcfiles', function() {
 });
 
 gulp.task('build-copynodemodules', function() {
-    return gulp.src('./package.json')
+    return gulp.src('./src/package.json')
         .pipe(gulp.dest('temp'))
         .pipe(install({production: true}));
 });
