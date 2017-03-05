@@ -7,6 +7,7 @@ import Box from 'grommet/components/Box'
 import Button from 'grommet/components/Button'
 import Spinner from 'react-spinkit';
 import Logo from '../components/common/logo';
+import Loading from '../components/common/loading';
 import Fade from 'react-fade';
 
 
@@ -48,12 +49,7 @@ export default class LoginPage extends TrackerReact(React.Component) {
         if (Meteor.userId() && !Meteor.loggingIn()){
 
                 content = (
-                    <Box>
-                        <Logo/>
-                        <Button primary={true} label="Go !" onClick={() => {
-                            browserHistory.push('/app');
-                        }}/>
-                    </Box>
+                    <Loading/>
                 );
         }
         else {
@@ -66,9 +62,7 @@ export default class LoginPage extends TrackerReact(React.Component) {
 
         if(this.state.loading){
             content = (
-                <Box justify='center' align='center' full={true}>
-                    <Spinner spinnerName='double-bounce' noFadeIn={true}/>
-                </Box>
+                <Loading/>
             );
         }
 

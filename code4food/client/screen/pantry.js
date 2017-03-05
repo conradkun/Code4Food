@@ -123,7 +123,7 @@ class PantryScreen extends Component{
             );
         }
         return(
-            <Box colorIndex={AppSettings.backgroundColor} align="center" full={true}>
+            <Box colorIndex={AppSettings.backgroundColor} align="center" alignSelf="stretch" flex={true}>
                 {(this.props.foods.length == 0) ? <NoFood/> : null}
                 {(this.props.foods.length < 5) ? <Paragraph>You have to create at least 5 items in your pantry before using Code 4 Food</Paragraph> : null}
                 <Tiles fill={true} flush={false}>

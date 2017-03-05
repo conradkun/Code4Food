@@ -6,11 +6,9 @@ import Fade from 'react-fade'
 export default class Loading extends Component{
     render(){
         return (
-            <Fade>
-            <Box align="center" alignSelf="center" alignContent="center" justify="center">
-                <img src="/Logo.png"/>
+            <Box full={true} align="center" alignSelf="center" alignContent="center" justify="center">
+                <img src="/Loader2.gif"/>
             </Box>
-            </Fade>
         )
     }
 }

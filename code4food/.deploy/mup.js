@@ -1,7 +1,7 @@
 module.exports = {
   servers: {
     one: {
-      host: '138.68.174.20',
+      host: '138.68.135.130',
       username: 'root',
       // pem:
       password: 'Jux444719'
@@ -10,16 +10,16 @@ module.exports = {
   },
 
   meteor: {
-    name: 'Bareme',
-    path: '../../Bareme',
+    name: 'codeforfood',
+    path: '../../code4food',
     servers: {
       one: {},
     },
     buildOptions: {
-      serverOnly: false,
+      serverOnly: true,
     },
     env: {
-      ROOT_URL: 'http://138.68.174.20:80',
+      ROOT_URL: 'http://138.68.135.130:80',
       MONGO_URL: 'mongodb://localhost/meteor',
     },
 
@@ -29,7 +29,7 @@ module.exports = {
 
     // Show progress bar while uploading bundle to server
     // You might need to disable it on CI servers
-    enableUploadProgressBar: false
+    enableUploadProgressBar: true
   },
 
   mongo: {
