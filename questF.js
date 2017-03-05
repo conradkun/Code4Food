@@ -71,5 +71,5 @@ function subQuestValue(subquestId,subquests,pantry){
 	sumDifDur+=relevantSubquests[i].difficulty*relevantSubquests[i].duration;
     }
     var subquest = getSubQuest(subquestId,relevabtSubquests);
-    return subquest.difficulty*subquest.duration/subDifDur;
+    return round(subquest.difficulty*subquest.duration/(subDifDur*10));
 }
