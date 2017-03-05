@@ -1,17 +1,7 @@
 # Bareme
-Project Bareme
+Code 4 Food
 ###Run :
+npm install
 meteor
-###Run desktop: 
-npm run desktop -- run %DDP_URL%
-###Deploy: 
+###Deploy:
 cd .deploy &amp;&amp; mup deploy
-
-### Npm Package:
-react
-react-dom
-grommet
-react-addons-pure-render-mixin
-
-Meteor Package:
-scss
