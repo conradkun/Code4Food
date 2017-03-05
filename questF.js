@@ -1,54 +1,75 @@
-function nearestneighbour(y, xs){
-	var minVal=Math.abs(xs[0]-y);
-	var minIndex=0;
-	for (i=1;i<xs.length;i++){
-		if (Math.abs(xs[i]-y)<minVal){
-			minVal = Math.abs(xs[i]-y);
-			minIndex=i;
-		}
+/*
+  quest = {id name difficulty duration user}
+  pantry = {id name calories}
+  subquest = {id questId name difficulty duration user}
+*/
+
+function nearestCalories(calories, pantry){
+    var nearestVal=Math.abs(pantry[0].calories-calories);
+    var nearestIndex=0;
+    for (i=1;i<pantry.length;i++){
+	if (Math.abs(pantry[i].calories-calories)<nearestVal){
+		nearestVal = Math.abs(pantry[i].calories-calories);
+		nearestIndex=i;
+	    }
 	}
-
-	return minIndex;
+    return pantry[nearestIndex].id;
 }
-
-function dropItem(xs, diff, dur){
-	var xmin = minArray(xs);
-	var xmax = maxArray(xs);
-	var yD = xmin+diff*dur*(xmax-xmin)/9;
-	var dItem = nearestneighbour(yD, xs);
-	return dItem; // better variable names
-}
-
-function minArray (xs) {
-	var xmin = xs[0];
-	for (i=1;i<xs.length;i++) {
-		if (xs[i]<xmin){
-			xmin = xs[i];
-		}
+function getQuest(id,quests){
+    for (i=0;i<quests.length;i++){
+	if (quests[i].id==id){
+	    return(quests[i]);
 	}
-	return xmin;
+    }
 }
-
-function maxArray (xs) {
-	var xmax = xs[0];
-	for (i=1;i<xs.length;i++) {
-		if (xs[i]>xmax){
-			xmax = xs[i];
-		}
+function getSubQuest(id,subquests){
+    for (i=0;i<subquests.length;i++){
+	if (subquests[i].id==id){
+	    return(subquests[i]);
 	}
-	return xmax;
+    }
 }
-
-
-function subQuestThing{xs,xsDiff, xsDur, index){ // xsDiff and xsDur are array of difficulties
-	var dItem = dropItem(xs, xsDiff[index], xsDur[index]);
-	var sumSQ =0;
-
-	for (i=0;i<xs.length;i++){
-		sumSQ = sumSQ + xsDiff[i]*xsDur[i];
+function subQuests(id,subquests){
+    var matchingSubquests = [];
+    for (i=0;i<subquests.length;i++){
+	if (subquests[i].questId==id){
+	    matchingSubquests.push(subquests[i]);
 	}
-
-	var varSQ;
-	varSQ = xsDiff[index]*xsDur[index]/sumSQ*xs[dItem];
-	return varSQ;
+	return matchingSubquests;
+    }
+}
+function dropItem(questId,quests,pantry){
+    var quest = getQuest(questId,quests);
+    var minCal = minCalories(pantry);
+    var maxCal = maxCalories(pantry);
+    var calories = minCal+quest.difficulty*quest.duration*(maxCal-minCal)/9;
+    var droppedItemId = nearestCalories(calories, pantry);
+    return droppedItemId;
+}
+function minCalories (pantry) {
+    var min = pantry[0].calories;
+    for (i=1;i<pantry.length;i++) {
+	if (pantry[i].calories<min){
+	    min = pantry[i].calories;
+	}
+    }
+    return min;
+}
+function maxCalories (pantry) {
+    var max = pantry[0].calories;
+    for (i=1;i<pantry.length;i++) {
+	if (pantry[i].calories>max){
+	    max = pantry[i].calories;
+	}
+    }
+    return max;
+}
+function subQuestValue(subquestId,subquests,pantry){
+    var relevantSubquests = subQuests(getSubQuest(subquestId,subquests).questId,subquests);
+    var sumDifDur = 0
+    for (i=0;i<relevantSubquests;i++){
+	sumDifDur+=relevantSubquests[i].difficulty*relevantSubquests[i].duration;
+    }
+    var subquest = getSubQuest(subquestId,relevabtSubquests);
+    return subquest.difficulty*subquest.duration/subDifDur;
 }
