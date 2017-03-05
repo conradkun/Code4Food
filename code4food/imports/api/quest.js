@@ -2,7 +2,8 @@ import {Mongo} from 'meteor/mongo';
 
 export const Quest = new Mongo.Collection('quest');
 export const SubQuest = new Mongo.Collection('sub_quest');
-
+import {Food} from './food';
+import {GetShitDone} from '../get_shit_done';
 
 //TODO Add simpleSchema
 Meteor.methods({
@@ -65,6 +66,11 @@ Meteor.methods({
         let subQuests = SubQuest.find({quest: questId}).fetch();
         console.log(subQuests);
         subQuests.map((q) => {
+
+            let gold = GetShitDone.subQuestValue(q._id, SubQuest.find({user: this.userId}).fetch(),
+                Quest.find({user: this.userId}).fetch(), Food.find({user: this.userId}).fetch());
+            Meteor.users.update(this.userId, {$inc: {"profile.gold": gold}});
+
             return SubQuest.update(q._id, {
                 $set: {
                     completed: true
@@ -78,6 +84,10 @@ Meteor.methods({
         if (this.userId !== subQuest.user) {
             throw new Meteor.Error("wrong-user", "this is not the creator of the quest");
         }
+
+        let gold = GetShitDone.subQuestValue(subQuestId, SubQuest.find({user: this.userId}).fetch(),
+            Quest.find({user: this.userId}).fetch(), Food.find({user: this.userId}).fetch());
+        Meteor.users.update(this.userId, {$inc: {"profile.gold": gold}});
         return SubQuest.update(subQuestId, {
             $set: {
                 completed: true

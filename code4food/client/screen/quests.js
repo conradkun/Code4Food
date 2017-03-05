@@ -196,7 +196,7 @@ class QuestsScreen extends Component{
             )
         }
         return(
-        <Box colorIndex={AppSettings.backgroundColor} full={true}>
+        <Box colorIndex={AppSettings.backgroundColor}>
             {(this.props.quests.length == 0 || this.props.quests == undefined || this.props.quests == null) ? <NoQuest/> : null}
             <Tiles fill={true}>
             {this._renderCards()}

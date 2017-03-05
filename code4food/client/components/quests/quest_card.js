@@ -106,7 +106,7 @@ class QuestCard extends Component{
             </Header>
         );
         return (
-            <Card className={completed ? "low-opacity" : null}basis="full" margin="medium" colorIndex="light-1" pad="small" key={this.props.name} heading={header}
+            <Card className={"drop-shadow" + " " + (completed ? "low-opacity" : null)}basis="full" margin="medium" colorIndex="light-1" pad="small" key={this.props.name} heading={header}
                   description={this._generateSubQuestList()}
             />
         )

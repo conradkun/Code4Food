@@ -36,16 +36,18 @@ function getItem(id,pantry){
         }
     }
 }
-function subQuests(id,subQuests){
+function getSubQuests(id,subQuests){
     let matchingSubQuests = [];
     for (let i=0;i<subQuests.length;i++){
-        if (subQuests[i].questId==id){
+        if (subQuests[i].quest==id){
             matchingSubQuests.push(subQuests[i]);
         }
     }
     return matchingSubQuests;
 }
 function dropItem(questId,quests,pantry){
+    console.log('DropItem.id', questId);
+    console.log("dropItem.quests", quests);
     let quest = getQuest(questId,quests);
     let minCal = minCalories(pantry);
     let maxCal = maxCalories(pantry);
@@ -71,14 +73,29 @@ function maxCalories (pantry) {
     }
     return max;
 }
-function subQuestValue(subQuestId,subQuests,pantry){
-    let relevantSubQuests = subQuests(getSubQuest(subQuestId,subQuests).questId,subQuests);
+
+function helper(s){
+    if (s=="low"){
+        return 1;
+    }
+    if (s=="medium"){
+        return 2;
+    }
+    if (s=="high"){
+        return 3;
+    }
+}
+
+function subQuestValue(subQuestId,subQuests,quests,pantry){
+    let relevantSubQuests = getSubQuests(getSubQuest(subQuestId,subQuests).quest,subQuests);
+    console.log("relevantSubQuests", relevantSubQuests);
     let sumDifDur = 0;
     for (let i=0;i<relevantSubQuests;i++){
         sumDifDur+=relevantSubQuests[i].difficulty*relevantSubQuests[i].duration;
     }
     let subQuest = getSubQuest(subQuestId,relevantSubQuests);
-    return Math.ceil(subQuest.difficulty*subQuest.duration/(sumDifDur*10));
+    console.log("subQuest", subQuest);
+    return Math.ceil(helper(subQuest.difficulty)*helper(subQuest.duration)*dropItem(subQuest.quest,quests,pantry).calories/(sumDifDur*10));
 }
 function caloriesToPrice(id,pantry){
     let x=minCalories(pantry);

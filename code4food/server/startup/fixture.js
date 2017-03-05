@@ -7,7 +7,8 @@ if(true) {
         password: '1111',
         profile: {
             name: { first: 'Justin', last: 'Glibert' },
-            gold: 0
+            gold: 0,
+            inventory: []
         }
     },
         {
@@ -15,7 +16,8 @@ if(true) {
             password: '1111',
             profile: {
                 name: { first: 'Dewi Tim', last: 'Davies' },
-                gold: 0
+                gold: 0,
+                inventory: []
             }
         }];
 
