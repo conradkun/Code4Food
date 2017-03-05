@@ -29,6 +29,13 @@ function getSubQuest(id,subquests){
 	}
     }
 }
+function getItem(id,pantry){
+    for (i=0;i<pantry.length;i++){
+	if (pantry[i].id==id){
+	    return(pantry[i]);
+	}
+    }
+}
 function subQuests(id,subquests){
     var matchingSubquests = [];
     for (i=0;i<subquests.length;i++){
@@ -72,4 +79,13 @@ function subQuestValue(subquestId,subquests,pantry){
     }
     var subquest = getSubQuest(subquestId,relevabtSubquests);
     return round(subquest.difficulty*subquest.duration/(subDifDur*10));
+}
+function caloriesToPrice(id,pantry){
+    var x=maxCalories(pantry);
+    var y=maxCalories(pantry);
+    var cal=getItem(id,pantry).calories;
+    var a=(2*y-x)/((y-x)**2);
+    var b=-2*x*a;
+    var c=(x*y**2)/(y-x)**2;
+    return round(a*cal**2+b*cal+c);
 }
