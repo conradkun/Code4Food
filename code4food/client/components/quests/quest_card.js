@@ -38,8 +38,19 @@ class QuestCard extends Component{
         if(this.props.subQuests.filter((subQuest)=>{return subQuest.quest == this.props.id}).length >= 1) {
             console.log(this.props.subQuests.filter((subQuest) => {return (!subQuest.completed && subQuest.quest == this.props.id)}));
             if (this.props.subQuests.filter((subQuest) => {return (!subQuest.completed && subQuest.quest == this.props.id)}).length == 0){
-                console.log("bim");
-                Meteor.call('completeQuest', this.props.id);
+                if(this.completed == false) {
+                    console.log("bim");
+                    Meteor.call('completeQuest', this.props.id, function (error, result) {
+                        // identify the error
+                        if (error) {
+                            // show a nice error message
+                            Bert.alert(error.reason, 'danger', 'fixed-top', 'fa-remove');
+                        }
+                        if (result) {
+                            Bert.alert("Wow you just looted " + result + ", you are lucky :) Check your inventory for more", "success", 'growl-top-right', 'fa-info');
+                        }
+                    });
+                }
             }
         }
         let cards = this.props.subQuests.filter((subQuest)=>{return subQuest.quest == this.props.id}).map((subQuest) => {
@@ -57,7 +68,17 @@ class QuestCard extends Component{
         if ( completed==false ){
             completedButton = (
                 <Anchor icon={<Checkmark />}
-                        onClick={()=>{Meteor.call('completeQuest', id); Meteor.call('completeAllSubQuest', id)}}
+                        onClick={()=>{Meteor.call('completeQuest', this.props.id, function (error, result) {
+                            // identify the error
+                            if (error) {
+                                // show a nice error message
+                                Bert.alert(error.reason, 'danger', 'fixed-top', 'fa-remove' );
+                            }
+                            if (result) {
+                                Bert.alert("Wow you just looted " + result + ", you are lucky :) Check your inventory for more", "success", 'growl-top-right', 'fa-info');
+                            }
+                        });
+                        Meteor.call('completeAllSubQuest', id)}}
                         primary={true}
                         animateIcon={true} />
             )

@@ -49,7 +49,14 @@ export default class LoginPage extends TrackerReact(React.Component) {
         if (Meteor.userId() && !Meteor.loggingIn()){
 
                 content = (
-                    <Loading/>
+                    <Box size="medium">
+                        <Logo/>
+                        <Button
+                            label="Go !"
+                            secondary={true}
+                            onClick={()=>{browserHistory.push('/app')}}
+                        />
+                    </Box>
                 );
         }
         else {

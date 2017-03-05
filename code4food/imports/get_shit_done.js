@@ -3,6 +3,8 @@
  pantry = {id name calories}
  subquest = {id questId name difficulty duration user}
  */
+;
+import {Quest} from './api/quest'
 
 function nearestCalories(calories, pantry){
     let nearestVal=Math.abs(pantry[0].calories-calories);
@@ -17,12 +19,17 @@ function nearestCalories(calories, pantry){
     console.log("nearestIndex",nearestVal);
     return pantry[nearestIndex]._id;
 }
+/**
 function getQuest(id,quests){
     for (let i=0;i<quests.length;i++){
         if (quests[i]._id==id){
             return(quests[i]);
         }
     }
+}
+ **/
+function getQuest(id) {
+    return Quest.findOne({_id: id});
 }
 function getSubQuest(id,subquests){
     for (let i=0;i<subquests.length;i++){

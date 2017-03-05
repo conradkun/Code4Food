@@ -41,8 +41,29 @@ html{
     height: 400px;
 }
 
+.footer-grass {
+        height: 140px;
+        background: url(/GrassWorm.gif) center repeat-x;
+        background-size: 280px 100% !important;
+}
+
+.svg-icon{
+    margin-top: -10px !important;
+}
+
 .low-opacity > *{
     opacity: 0.4;
+}
+.logo-title{
+    height: auto;
+    width: 100%;
+    padding-right: 30px;
+    margin-right: -50px;
+}
+
+.login-button{
+    border-color: #893d00 !important;
+    background-color: #893d00 !important;
 }
 
 .logo-shape {
@@ -62,6 +83,15 @@ html{
     color: $brand-color;
     top: -55px;
     position: relative;
+}
+
+bert-alert {
+    filter: drop-shadow(0px 0px 20px rgba(0,0,0,.3));
+    border-radius: 12px;
+}
+
+bert-alert > * {
+    font-family: 'Work Sans', Arial, sans-serif;
 }
 
 .logo-svg-wrapper:hover .logo-shape {

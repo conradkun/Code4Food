@@ -20,6 +20,10 @@ import Pulse from 'grommet/components/icons/Pulse';
 import Basket from 'grommet/components/icons/base/Basket';
 import Task from 'grommet/components/icons/base/Task';
 import SVGIcon from 'grommet/components/SVGIcon';
+import QuestsIcon from './components/common/QuestsIcon';
+import LogoTitle from './components/common/logo_title';
+import ShopIcon from './components/common/ShopIcon';
+import InventoryIcon from './components/common/InventoryIcon';
 import Edit from 'grommet/components/icons/base/Edit';
 import Close from 'grommet/components/icons/base/Close';
 import MenuIcon from 'grommet/components/icons/base/Menu';
@@ -49,10 +53,20 @@ export default class Container extends TrackerReact(React.Component) {
 
 
     _renderTitle () {
+        let activeRoute = "Other";
+        if (this.props.location.pathname == '/app'){
+            activeRoute = "Quests"
+        }
+        if (this.props.location.pathname == '/app/pantry'){
+            activeRoute = "Pantry"
+        }
+        if (this.props.location.pathname == '/app/inventory'){
+            activeRoute = "Inventory"
+        }
         return (
             <Title pad='small' responsive={false}>
                     <Box align='center' direction='row'>
-                        <Title>Quest 4 Food</Title>
+                        <LogoTitle/><Title>@ {activeRoute}</Title>
                     </Box>
             </Title>
         );
@@ -105,12 +119,17 @@ export default class Container extends TrackerReact(React.Component) {
                            </SVGIcon>}
                            size='medium'
                     />
-                    <Anchor icon={<Task />}
+                    <Anchor icon={<QuestsIcon />}
+                            justify="center"
                             onClick={()=>{{browserHistory.push('/app')}}}
                             primary={false}
                             animateIcon={true} />
-                    <Anchor icon={<Basket />}
+                    <Anchor icon={<ShopIcon />}
                             onClick={()=>{{browserHistory.push('/app/pantry')}}}
+                            primary={false}
+                            animateIcon={true} />
+                    <Anchor icon={<InventoryIcon />}
+                            onClick={()=>{{browserHistory.push('/app/inventory')}}}
                             primary={false}
                             animateIcon={true} />
                     <Menu icon={<More />}
@@ -120,12 +139,6 @@ export default class Container extends TrackerReact(React.Component) {
                         <Anchor href='#'
                                 onClick={this._logout}>
                             Log out
-                        </Anchor>
-                        <Anchor href='#'>
-                            Second
-                        </Anchor>
-                        <Anchor href='#'>
-                            Third
                         </Anchor>
                     </Menu>
                 </Box>

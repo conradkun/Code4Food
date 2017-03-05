@@ -15,6 +15,7 @@ import Close from 'grommet/components/icons/base/Close';
 import MenuIcon from 'grommet/components/icons/base/Menu';
 import LinkPrevious from 'grommet/components/icons/base/LinkPrevious';
 import Pulse from 'grommet/components/icons/Pulse';
+import Loading from '../components/common/loading';
 import Paragraph from "grommet/components/Paragraph";
 import AppSettings from '../utils/app_settings';
 import FoodCard from '../components/pantry/food_card';
@@ -32,6 +33,7 @@ import Tiles from 'grommet/components/Tiles';
 
 class PantryScreen extends Component{
     componentDidMount() {
+        setTimeout(function() { this.setState({loading: false}); }.bind(this), 200);
         this.props.onRef(this)
     }
     componentWillUnmount() {
@@ -49,9 +51,11 @@ class PantryScreen extends Component{
         this._onRequestForBuyClose = this._onRequestForBuyClose.bind(this);
         this._search = this._search.bind(this);
         this.state = {
+            loading: true,
             addFood: false,
             buy: false,
             buyParameters: {
+                loading: true,
                 id: undefined,
                 name: undefined,
                 calories: undefined
@@ -122,10 +126,17 @@ class PantryScreen extends Component{
                     calories={this.state.buyParameters.calories} onSubmit={this._onBuy}/>
             );
         }
+        if (this.state.loading){
+            return(
+                <Box colorIndex={AppSettings.backgroundColor} full={true}>
+                    <Loading/>
+                </Box>
+            )
+        }
         return(
             <Box colorIndex={AppSettings.backgroundColor} align="center" alignSelf="stretch" flex={true}>
                 {(this.props.foods.length == 0) ? <NoFood/> : null}
-                {(this.props.foods.length < 5) ? <Paragraph>You have to create at least 5 items in your pantry before using Code 4 Food</Paragraph> : null}
+                {(this.props.foods.length < 3) ? <Paragraph>You have to create at least 3 items in your pantry before using Code 4 Food !</Paragraph> : null}
                 <Tiles fill={true} flush={false}>
                     {this._renderCards()}
                 </Tiles>

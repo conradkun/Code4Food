@@ -36,11 +36,11 @@ export default class EatModal extends Component {
             <Fading>
                 <Layer onClose={this.props.onClose} closer={false} align="center"
                 >
-                    <Fadinf>
+                    <Fading duration={.4}>
                         <Box fill={true} align="center" justify="center" pad={{vertical: 'large', horizontal: 'small'}}>
                             <img src="/Eating.gif" className="gif"/>
                         </Box>
-                    </Fadinf>
+                    </Fading>
                 </Layer>
             </Fading>
         );

@@ -14,7 +14,7 @@ export default class NoFood extends Component{
                          tag='h2'>
                     You don't have any items in your Pantry :(
                 </Heading>
-                <Paragraph>You have to create at least 5 items in your pantry before using Code 4 Food</Paragraph>
+                <Paragraph>You have to create at least 3 items in your pantry before using Code 4 Food</Paragraph>
             </Box>
         )
     }

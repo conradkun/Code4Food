@@ -3,6 +3,7 @@ import {Mongo} from 'meteor/mongo';
 export const Quest = new Mongo.Collection('quest');
 export const SubQuest = new Mongo.Collection('sub_quest');
 import {Food} from './food';
+import {Item} from './item';
 import {GetShitDone} from '../get_shit_done';
 
 //TODO Add simpleSchema
@@ -56,14 +57,27 @@ Meteor.methods({
         if (this.userId !== quest.user) {
             throw new Meteor.Error("wrong-user", "this is not the creator of the quest");
         }
-        return Quest.update({_id: questId}, {
+        let droppedId = GetShitDone.dropItem(questId,SubQuest.find({user: this.userId}).fetch(), Food.find({user: this.userId}).fetch());
+        let item = Food.findOne({_id: droppedId});
+        console.log('completeQuestCalled');
+        Item.insert({
+            user: this.userId,
+            name: item.name,
+            calories: item.calories
+        });
+
+        Food.remove(droppedId);
+
+        Quest.update({_id: questId}, {
             $set: {
                 completed: true
             }
         });
+
+        return item.name;
     },
     'completeAllSubQuest': function (questId) {
-        let subQuests = SubQuest.find({quest: questId}).fetch();
+        let subQuests = SubQuest.find({quest: questId}).fetch().filter((q) => {return q.completed==false});
         console.log(subQuests);
         subQuests.map((q) => {
 

@@ -16,6 +16,7 @@ import MenuIcon from 'grommet/components/icons/base/Menu';
 import LinkPrevious from 'grommet/components/icons/base/LinkPrevious';
 import Pulse from 'grommet/components/icons/Pulse';
 import Paragraph from "grommet/components/Paragraph";
+import Loading from '../components/common/loading';
 import AppSettings from '../utils/app_settings';
 import FoodCard from '../components/inventory/food_card';
 import EatModal from '../components/inventory/eat_modal';
@@ -27,6 +28,7 @@ import Tiles from 'grommet/components/Tiles';
 
 class InventoryScreen extends Component{
     componentDidMount() {
+        setTimeout(function() { this.setState({loading: false}); }.bind(this), 200);
         this.props.onRef(this)
     }
     componentWillUnmount() {
@@ -40,6 +42,7 @@ class InventoryScreen extends Component{
         this._onRequestForEatFoodClose = this._onRequestForEatFoodClose.bind(this);
         this._search = this._search.bind(this);
         this.state = {
+            loading: true,
             eatFood: false,
             eatFoodId: undefined
         }
@@ -84,6 +87,13 @@ class InventoryScreen extends Component{
                     onSubmit={this._onEatFood}/>
             );
 
+        }
+        if (this.state.loading){
+            return(
+                <Box colorIndex={AppSettings.backgroundColor} full={true}>
+                    <Loading/>
+                </Box>
+            )
         }
         return (
             <Box colorIndex={AppSettings.backgroundColor} align="center" alignSelf="stretch" flex={true}>

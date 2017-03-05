@@ -7,7 +7,7 @@ export default class Loading extends Component{
     render(){
         return (
             <Box full={true} align="center" alignSelf="center" alignContent="center" justify="center">
-                <img src="/Loader2.gif"/>
+                <img className="gif" src="/Loader2.gif"/>
             </Box>
         )
     }

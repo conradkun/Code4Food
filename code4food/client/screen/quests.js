@@ -18,13 +18,12 @@ import Pulse from 'grommet/components/icons/Pulse';
 import Paragraph from "grommet/components/Paragraph";
 import AppSettings from '../utils/app_settings';
 import Loading from '../components/common/loading';
+import Footer from '../components/common/footer';
 import AddQuestModal from '../components/quests/add_quest_modal';
 import AddSubQuestModal from '../components/quests/add_sub_quest_modal';
 import EditQuestModal from '../components/quests/edit_quest_modal';
 import QuestCard from '../components/quests/quest_card';
 import NoQuest from '../components/quests/no_quest';
-import EditUserModal from '../components/quests/edit_user_modal';
-import DeleteUserModal from '../components/quests/delete_user_modal';
 import {Quest, SubQuest} from '../../imports/api/quest';
 import {Food} from '../../imports/api/food';
 import Spinner from 'react-spinkit';
@@ -38,8 +37,8 @@ import Tiles from 'grommet/components/Tiles';
 class QuestsScreen extends Component{
     componentDidMount() {
         this.props.onRef(this);
-        setTimeout(function() { this.setState({loading: false}); }.bind(this), 100);
-        setTimeout(function() { if (this.props.foods.length < 5){
+        setTimeout(function() { this.setState({loading: false}); }.bind(this), 200);
+        setTimeout(function() { if (this.props.foods.length < 3){
             browserHistory.push('/app/pantry');
         } }.bind(this), 500);
     }
@@ -202,6 +201,7 @@ class QuestsScreen extends Component{
             {this._renderCards()}
             </Tiles>
             {modal}
+            <Footer />
         </Box>
         )
     }
