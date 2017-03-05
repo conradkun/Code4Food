@@ -21,7 +21,7 @@ Meteor.startup(() => {
             c.stop();
         }
         let me = Meteor.users.findOne({_id: Meteor.userId()});
-        if(me){
+        if(me && me.profile){
             init();
             c.stop();
         }

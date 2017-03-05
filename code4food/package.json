@@ -9,6 +9,7 @@
     "bcrypt": "^1.0.2",
     "classnames": "^2.2.5",
     "events": "^1.1.1",
+    "exploder": "^0.2.0",
     "grommet": "^1.2.1",
     "grommet-addons": "^0.3.0",
     "inline-style-prefixer": "^2.0.5",

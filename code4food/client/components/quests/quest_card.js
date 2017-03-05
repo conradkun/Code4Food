@@ -10,6 +10,7 @@ import Add from 'grommet/components/icons/base/Add';
 import Edit from 'grommet/components/icons/base/Edit';
 import Clock from 'grommet/components/icons/base/Clock';
 import Tools from 'grommet/components/icons/base/Tools';
+import Checkmark from 'grommet/components/icons/base/Checkmark';
 import Tiles from 'grommet/components/Tiles';
 import Heading from 'grommet/components/Heading';
 
@@ -22,10 +23,26 @@ class QuestCard extends Component{
         super(props);
         this._generateSubQuestList = this._generateSubQuestList.bind(this);
     }
+    getColor(status){
+        if(status == "High"){
+            return 'critical'
+        }
+        else if(status == "Medium"){
+            return 'warning'
+        }
+        else if(status == "Low"){
+            return 'ok'
+        }
+    }
     _generateSubQuestList(){
-        console.log(this.props.subQuests);
+        if(this.props.subQuests.filter((subQuest)=>{return subQuest.quest == this.props.id}).length >= 1) {
+            console.log(this.props.subQuests.filter((subQuest) => {return (!subQuest.completed && subQuest.quest == this.props.id)}));
+            if (this.props.subQuests.filter((subQuest) => {return (!subQuest.completed && subQuest.quest == this.props.id)}).length == 0){
+                console.log("bim");
+                Meteor.call('completeQuest', this.props.id);
+            }
+        }
         let cards = this.props.subQuests.filter((subQuest)=>{return subQuest.quest == this.props.id}).map((subQuest) => {
-            console.log("passed");
             return <SubQuestCard key={subQuest._id} completed={subQuest.completed} name={subQuest.name} duration={subQuest.duration} difficulty={subQuest.difficulty} id={subQuest._id}/>
         });
         return(
@@ -35,10 +52,19 @@ class QuestCard extends Component{
         )
     }
     render(){
-        let {id, name, difficulty, duration} = this.props;
+        let {id, name, difficulty, duration, completed} = this.props;
+        let completedButton;
+        if ( completed==false ){
+            completedButton = (
+                <Anchor icon={<Checkmark />}
+                        onClick={()=>{Meteor.call('completeQuest', id); Meteor.call('completeAllSubQuest', id)}}
+                        primary={true}
+                        animateIcon={true} />
+            )
+        }
         let header = (
             <Header>
-                <Heading strong={true}
+                <Heading strong={true} className={completed ? "text-line-trough" : null}
                          tag='h2'>
                     {name}
                 </Heading>
@@ -48,33 +74,39 @@ class QuestCard extends Component{
                     align="center"
                     pad={{between: "medium"}}
                     direction='row'>
-                    <Anchor icon={<Clock />}
+                    <Anchor icon={<Clock colorIndex={this.getColor(duration)}/>}
+                            className={'color-override-'+this.getColor(duration)}
                             label={duration}
-                            animateIcon={true}
+                            animateIcon={false}
                             reverse={false}
-                            primary={false}
+
                             disabled={false} />
-                    <Anchor icon={<Tools />}
+                    <Anchor icon={<Tools colorIndex={this.getColor(difficulty)}/>}
+                            className={'color-override-'+this.getColor(difficulty)}
                             label={difficulty}
-                            animateIcon={true}
+                            animateIcon={false}
                             reverse={false}
-                            primary={false}
+
                             disabled={false} />
                     <Anchor icon={<Add />}
-                            onClick={()=>{this.props.onAddSubQuest(id)}}
+                            onClick={()=>{if(completed==false) {this.props.onAddSubQuest(id)}}}
+                            disabled={completed}
                             animateIcon={true}
                             primary={true}
                             />
                     <Anchor icon={<Edit />}
-                            onClick={()=>{this.props.onEditQuest({id, name, difficulty, duration})}}
+                            onClick={()=>{if(completed==false) {this.props.onEditQuest({id, name, difficulty, duration})}}}
+                            disabled={completed}
                             primary={true}
                             animateIcon={true} />
+                    {completedButton}
+
 
                 </Box>
             </Header>
         );
         return (
-            <Card basis="full" margin="medium" colorIndex="light-1" pad="small" key={this.props.name} heading={header}
+            <Card className={completed ? "low-opacity" : null}basis="full" margin="medium" colorIndex="light-1" pad="small" key={this.props.name} heading={header}
                   description={this._generateSubQuestList()}
             />
         )

@@ -8,15 +8,17 @@ import Header from 'grommet/components/Header';
 import Title from 'grommet/components/Title';
 import Box from 'grommet/components/Box';
 import Menu from 'grommet/components/Menu';
+import Value from 'grommet/components/Value';
 import Button from 'grommet/components/Button';
-import CloseIcon from 'grommet/components/icons/base/Close';
+import Money from 'grommet/components/icons/base/Money';
 import Anchor from 'grommet/components/Anchor';
 import Footer from 'grommet/components/Footer';
 import User from 'grommet/components/icons/base/User'
 import Search from 'grommet/components/Search';
 import More from 'grommet/components/icons/base/More';
 import Pulse from 'grommet/components/icons/Pulse';
-import UserAdd from 'grommet/components/icons/base/UserAdd';
+import Basket from 'grommet/components/icons/base/Basket';
+import Task from 'grommet/components/icons/base/Task';
 import Edit from 'grommet/components/icons/base/Edit';
 import Close from 'grommet/components/icons/base/Close';
 import MenuIcon from 'grommet/components/icons/base/Menu';
@@ -43,6 +45,8 @@ export default class Container extends TrackerReact(React.Component) {
         }
     }
 
+
+
     _renderTitle () {
         return (
             <Title pad='small' responsive={false}>
@@ -55,13 +59,13 @@ export default class Container extends TrackerReact(React.Component) {
 
     _renderHeader(){
         return(
-            <Header fixed={true}
+            <Header fixed={false}
                     float={false}
                     size='large'
                     splash={false}>
                 {this._renderTitle()}
                 <Box flex={true}
-                     justify='end'
+                     justify='center'
                      direction='row'
                      pad={{between: "small"}}
                      responsive={false}>
@@ -71,7 +75,21 @@ export default class Container extends TrackerReact(React.Component) {
                             placeHolder='Search'
                             onDOMChange={(event) => {this.setState({searchString: event.target.value})}}
                             dropAlign={{"right": "right", "top": "top"}} />
-                    <Pulse onClick={() => {this.child._onRequestForAddQuest()}}/>
+
+                    <Pulse onClick={() => {this.child._onRequestForAdd()}}/>
+                    <Value value={Meteor.user().profile.gold}
+                           icon={<Money size='medium'
+                           />}
+                           size='medium'
+                    />
+                    <Anchor icon={<Task />}
+                            onClick={()=>{{browserHistory.push('/app')}}}
+                            primary={false}
+                            animateIcon={true} />
+                    <Anchor icon={<Basket />}
+                            onClick={()=>{{browserHistory.push('/app/pantry')}}}
+                            primary={false}
+                            animateIcon={true} />
                     <Menu icon={<More />}
                           dropAlign={{"right": "right"}}
                           direction="row"

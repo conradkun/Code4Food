@@ -17,13 +17,16 @@ import LinkPrevious from 'grommet/components/icons/base/LinkPrevious';
 import Pulse from 'grommet/components/icons/Pulse';
 import Paragraph from "grommet/components/Paragraph";
 import AppSettings from '../utils/app_settings';
+import Loading from '../components/common/loading';
 import AddQuestModal from '../components/quests/add_quest_modal';
 import AddSubQuestModal from '../components/quests/add_sub_quest_modal';
 import EditQuestModal from '../components/quests/edit_quest_modal';
 import QuestCard from '../components/quests/quest_card';
+import NoQuest from '../components/quests/no_quest';
 import EditUserModal from '../components/quests/edit_user_modal';
 import DeleteUserModal from '../components/quests/delete_user_modal';
 import {Quest, SubQuest} from '../../imports/api/quest';
+import {Food} from '../../imports/api/food';
 import Spinner from 'react-spinkit';
 import Card from 'grommet/components/Card';
 import Accordion from 'grommet/components/Accordion';
@@ -34,13 +37,18 @@ import Tiles from 'grommet/components/Tiles';
 
 class QuestsScreen extends Component{
     componentDidMount() {
-        this.props.onRef(this)
+        this.props.onRef(this);
+        setTimeout(function() { this.setState({loading: false}); }.bind(this), 100);
+        setTimeout(function() { if (this.props.foods.length < 5){
+            browserHistory.push('/app/pantry');
+        } }.bind(this), 500);
     }
     componentWillUnmount() {
         this.props.onRef(undefined)
     }
     constructor(props) {
         super(props);
+        this._onRequestForAdd = this._onRequestForAddQuest.bind(this);
         this._renderCards = this._renderCards.bind(this);
         this._onAddQuest = this._onAddQuest.bind(this);
         this._onRequestForAddQuest = this._onRequestForAddQuest.bind(this);
@@ -53,6 +61,7 @@ class QuestsScreen extends Component{
         this._onRequestForEditQuestClose = this._onRequestForEditQuestClose.bind(this);
         this._search = this._search.bind(this);
         this.state = {
+            loading: true,
             addQuest: false,
             addSubQuest: false,
             editQuest: false,
@@ -72,17 +81,28 @@ class QuestsScreen extends Component{
             }
         }
     }
+
+    _onRequestForAdd(){
+        this._onRequestForAddQuest();
+    }
     _search(quest) {
         let name = quest.name;
         return name.toLowerCase().indexOf(this.props.searchString.toLowerCase()) != -1;
     }
     _renderCards() {
-        return this.props.quests.filter(this._search).map((quest) => {
+        let uncompleted = this.props.quests.filter(this._search).filter((quest)=>{return !quest.completed}).map((quest) => {
             return(
-                <QuestCard key={quest.name} name={quest.name} id={quest._id} difficulty={quest.difficulty} duration={quest.duration}
-                           onEditQuest={this._onRequestForEditQuest} onAddSubQuest={this._onRequestForAddSubQuest}/>
+                <QuestCard key={quest._id} name={quest.name} id={quest._id} difficulty={quest.difficulty} duration={quest.duration}
+                           completed={quest.completed} onEditQuest={this._onRequestForEditQuest} onAddSubQuest={this._onRequestForAddSubQuest}/>
             )
         });
+        let completed = this.props.quests.filter(this._search).filter((quest)=>{return quest.completed}).map((quest) => {
+            return(
+                <QuestCard key={quest._id} name={quest.name} id={quest._id} difficulty={quest.difficulty} duration={quest.duration}
+                           completed={quest.completed} onEditQuest={this._onRequestForEditQuest} onAddSubQuest={this._onRequestForAddSubQuest}/>
+            )
+        });
+        return uncompleted.concat(completed);
     }
     _onAddQuest (quest) {
         Meteor.call('addQuest', quest, function (error) {
@@ -168,8 +188,16 @@ class QuestsScreen extends Component{
                                      email={this.state.delete.email}
                                      onSubmit={this._onDeleteUser} />
         }
+        if (this.state.loading){
+            return(
+            <Box colorIndex={AppSettings.backgroundColor} full={true}>
+                <Loading/>
+            </Box>
+            )
+        }
         return(
-        <Box colorIndex={AppSettings.backgroundColor} full="horizontal">
+        <Box colorIndex={AppSettings.backgroundColor} full={true}>
+            {(this.props.quests.length == 0 || this.props.quests == undefined || this.props.quests == null) ? <NoQuest/> : null}
             <Tiles fill={true}>
             {this._renderCards()}
             </Tiles>
@@ -181,9 +209,11 @@ class QuestsScreen extends Component{
 
 export default createContainer(() => {
     Meteor.subscribe('quests');
+    Meteor.subscribe('foods');
     Meteor.subscribe('subQuests');
     return {
-        quests: Quest.find({}).fetch(),
-        subQuest: SubQuest.find({}).fetch()
+        quests: Quest.find({}).fetch().reverse(),
+        subQuest: SubQuest.find({}).fetch().reverse(),
+        foods: Food.find({}).fetch()
     }
 }, QuestsScreen);

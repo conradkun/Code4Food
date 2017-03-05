@@ -5,6 +5,7 @@ import Container from './container';
 import App from './app';
 import LoginPage from './screen/login_page';
 import QuestsScreen from './screen/quests';
+import PantryScreen from './screen/pantry';
 
 
 const authenticate = (nextState, replace) => {
@@ -32,6 +33,7 @@ export default Routes = (
             <IndexRoute component={LoginPage}/>
             <Route path="app" component={Container}>
                 <IndexRoute component={QuestsScreen} onEnter={authenticate}/>
+                <Route path="pantry" component={PantryScreen} onEnter={authenticate}/>
             </Route>
         </Route>
     </Router>

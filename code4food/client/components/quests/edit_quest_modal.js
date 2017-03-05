@@ -72,7 +72,7 @@ export default class EditQuestModal extends Component {
                                 </FormField>
                                 <FormField label="Difficulty">
                                     <select name={this.state.difficulty}
-                                            onChange={this._onDifficultyChange}>
+                                            onChange={this._onDifficultyChange} value={this.state.difficulty}>
                                         <option value="Low">Low</option>
                                         <option value="Medium">Medium</option>
                                         <option value="High">High</option>
@@ -80,7 +80,7 @@ export default class EditQuestModal extends Component {
                                 </FormField>
                                 <FormField label="Duration">
                                     <select name={this.state.duration}
-                                            onChange={this._onDurationChange}>
+                                            onChange={this._onDurationChange} value={this.state.duration}>
                                         <option value="Low">Low</option>
                                         <option value="Medium">Medium</option>
                                         <option value="High">High</option>

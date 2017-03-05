@@ -9,6 +9,7 @@ import Add from 'grommet/components/icons/base/Add';
 import Edit from 'grommet/components/icons/base/Edit';
 import Clock from 'grommet/components/icons/base/Clock';
 import Tools from 'grommet/components/icons/base/Tools';
+import Checkmark from 'grommet/components/icons/base/Checkmark';
 import Title from 'grommet/components/Title';
 import Heading from 'grommet/components/Heading';
 
@@ -27,11 +28,21 @@ export default class SubQuestCard extends Component{
         }
     }
     render(){
-        let {id, name, difficulty, duration} = this.props;
+        let {id, name, difficulty, duration, completed} = this.props;
+        let completedButton;
+        if ( completed==false ){
+            completedButton = (
+                <Anchor icon={<Checkmark />}
+                        onClick={()=>{Meteor.call('completeSubQuest', id)}}
+                        primary={true}
+                        animateIcon={true} />
+            )
+        }
+
         let header = (
             <Header>
                 <Heading strong={false}
-                         tag='h4' className={this.props.completed ? "text-line-trough" : null}>
+                         tag='h4' className={completed ? "text-line-trough" : null}>
                     {name}
                 </Heading>
                 <Box
@@ -42,12 +53,12 @@ export default class SubQuestCard extends Component{
                     direction='row'>
                     <Clock colorIndex={this.getColor(duration)}/>
                     <Tools colorIndex={this.getColor(difficulty)}/>
-
+                    {completedButton}
                 </Box>
             </Header>
         );
         return (
-            <Card basis="full" colorIndex="light-1" key={this.props.name} heading={header}
+            <Card basis="full" className="subQuest" colorIndex="light-1" key={this.props.name} heading={header}
             />
         )
     }

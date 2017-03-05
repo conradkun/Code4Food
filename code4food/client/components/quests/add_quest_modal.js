@@ -65,7 +65,7 @@ export default class AddQuestModal extends Component {
                             <fieldset>
                                 <FormField label="Name"
                                            >
-                                    <input name="name" type="text"
+                                    <input name="name" type="text" placeholder="Quest Name"
                                            onChange={this._onNameChange} />
                                 </FormField>
                                 <FormField label="Difficulty">

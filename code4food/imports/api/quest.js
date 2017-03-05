@@ -1,4 +1,4 @@
-import { Mongo } from 'meteor/mongo';
+import {Mongo} from 'meteor/mongo';
 
 export const Quest = new Mongo.Collection('quest');
 export const SubQuest = new Mongo.Collection('sub_quest');
@@ -6,7 +6,7 @@ export const SubQuest = new Mongo.Collection('sub_quest');
 
 //TODO Add simpleSchema
 Meteor.methods({
-    'addQuest': function({name, difficulty, duration}){
+    'addQuest': function ({name, difficulty, duration}) {
         let id = this.userId;
         return Quest.insert({
             user: id,
@@ -16,10 +16,10 @@ Meteor.methods({
             completed: false
         })
     },
-    'addSubQuest': function({questId, name, difficulty, duration}){
+    'addSubQuest': function ({questId, name, difficulty, duration}) {
         let quest = Quest.findOne({_id: questId});
         let id = this.userId;
-        if (quest.user !== this.userId){
+        if (quest.user !== this.userId) {
             throw new Meteor.Error("wrong-user", "this is not the creator of the quest");
         }
         return SubQuest.insert({
@@ -31,43 +31,54 @@ Meteor.methods({
             completed: false
         });
     },
-    'editQuest': function(id, {name, difficulty, duration}){
-        console.log(id, {name, difficulty, duration});
+    'editQuest': function (id, {name, difficulty, duration}) {
         let quest = Quest.findOne({_id: id});
-        if (quest.user !== this.userId){
+        if (quest.user !== this.userId) {
             throw new Meteor.Error("wrong-user", "this is not the creator of the quest");
         }
         console.log("updating");
-        return Quest.update(id,{
+        return Quest.update(id, {
             $set: {name, difficulty, duration}
         });
     },
-    'editSubQuest': function({id, name, difficulty, duration}){
+    'editSubQuest': function (id, {name, difficulty, duration}) {
         let subQuest = SubQuest.findOne({_id: id});
-        if (subQuest.user !== this.userId){
+        if (subQuest.user !== this.userId) {
             throw new Meteor.Error("wrong-user", "this is not the creator of the quest");
         }
-        return SubQuest.update(id,{
+        return SubQuest.update(id, {
             $set: {name, difficulty, duration}
         });
     },
-    'completeQuest': function({questId}){
+    'completeQuest': function (questId) {
         let quest = Quest.findOne({_id: questId});
-        if (this.userId !== quest.user){
+        if (this.userId !== quest.user) {
             throw new Meteor.Error("wrong-user", "this is not the creator of the quest");
         }
-        return Quest.update(questId,{
+        return Quest.update({_id: questId}, {
             $set: {
                 completed: true
             }
         });
     },
-    'completeSubQuest': function({subQuestId}){
+    'completeAllSubQuest': function (questId) {
+        let subQuests = SubQuest.find({quest: questId}).fetch();
+        console.log(subQuests);
+        subQuests.map((q) => {
+            return SubQuest.update(q._id, {
+                $set: {
+                    completed: true
+                }
+            })
+        });
+
+    },
+    'completeSubQuest': function (subQuestId) {
         let subQuest = SubQuest.findOne({_id: subQuestId});
-        if (this.userId !== subQuest.user){
+        if (this.userId !== subQuest.user) {
             throw new Meteor.Error("wrong-user", "this is not the creator of the quest");
         }
-        return SubQuest.update(subQuestId,{
+        return SubQuest.update(subQuestId, {
             $set: {
                 completed: true
             }

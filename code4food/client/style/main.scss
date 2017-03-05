@@ -19,6 +19,27 @@ html{
     text-decoration: line-through;
 }
 
+.color-override-ok > *{
+    fill: #8cc800 !important;
+    stroke: #8cc800 !important;
+}
+.color-override-critical > *{
+     fill: #ff324d !important;
+     stroke: #ff324d !important;
+}
+.color-override-warning > *{
+    fill: #ffd602 !important;
+    stroke: #ffd602 !important;
+}
+
+.subQuest > div{
+    padding: 1px !important;
+}
+
+.low-opacity > *{
+    opacity: 0.4;
+}
+
 .logo-shape {
     stroke-dasharray: 180 540;
     stroke-dashoffset: -454;
