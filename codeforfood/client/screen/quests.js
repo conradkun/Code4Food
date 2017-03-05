@@ -201,7 +201,7 @@ class QuestsScreen extends Component{
             {this._renderCards()}
             </Tiles>
             {modal}
-            <Footer />
+            
         </Box>
         )
     }

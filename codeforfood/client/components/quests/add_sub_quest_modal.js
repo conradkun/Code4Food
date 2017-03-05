@@ -89,7 +89,7 @@ export default class AddSubQuestModal extends Component {
                             </fieldset>
                         </FormFields>
                         <Footer pad={{vertical: 'medium'}} justify='center'>
-                            <Button label="Create this Sub Quest slave" primary={true}
+                            <Button label="Create this Sub Quest" primary={true}
                                     onClick={this._onSubmit} type="submit"/>
                         </Footer>
                     </Form>

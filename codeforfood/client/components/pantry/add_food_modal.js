@@ -44,7 +44,7 @@ export default class AddFoodModal extends Component {
     }
 
     _onCaloriesChange (event) {
-        if(Number.isInteger(parseInt(event.target.value)) && parseInt(event.target.value) < 1200) {
+        if(Number.isInteger(parseInt(event.target.value)) && parseInt(event.target.value) < 2000) {
             this.setState({error: undefined});
             this.setState({calories: parseInt(event.target.value)});
         }

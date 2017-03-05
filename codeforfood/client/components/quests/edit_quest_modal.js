@@ -89,7 +89,7 @@ export default class EditQuestModal extends Component {
                             </fieldset>
                         </FormFields>
                         <Footer pad={{vertical: 'medium'}} justify='center'>
-                            <Button label="Edit this Quest slave" primary={true}
+                            <Button label="Edit this Quest" primary={true}
                                     onClick={this._onSubmit} type="submit"/>
                         </Footer>
                     </Form>
