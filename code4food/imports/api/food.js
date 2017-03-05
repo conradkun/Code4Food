@@ -1,5 +1,5 @@
 import {Mongo} from 'meteor/mongo';
-
+import {GetShitDone} from '../get_shit_done';
 export const Food = new Mongo.Collection('food');
 
 Meteor.methods({
@@ -20,7 +20,7 @@ Meteor.methods({
         if (food.calories > gold) {
             throw new Meteor.Error("not-enough-gold", "you don't have enough gold");
         }
-        Meteor.users.update(this.userId, {$set: {"profile.gold": Math.round(gold - food.calories)}});
+        Meteor.users.update(this.userId, {$set: {"profile.gold": Math.round(gold - GetShitDone.caloriesToPrice(food._id, Food.find({user: this.userId}).fetch()))}});
         return Food.remove({_id: foodId});
     },
 });

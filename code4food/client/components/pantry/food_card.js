@@ -11,46 +11,68 @@ import Edit from 'grommet/components/icons/base/Edit';
 import Clock from 'grommet/components/icons/base/Clock';
 import CreditCard from 'grommet/components/icons/base/CreditCard';
 import Checkmark from 'grommet/components/icons/base/Checkmark';
-import Tiles from 'grommet/components/Tiles';
+import Value from 'grommet/components/Value';
 import Heading from 'grommet/components/Heading';
 
+
+import {GetShitDone} from '../../../imports/get_shit_done';
 import {Food} from '../../../imports/api/food';
 
 import Card from 'grommet/components/Card';
-export default class FoodCard extends Component{
+class FoodCard extends Component{
     constructor(props){
         super(props);
     }
 
     render(){
         let {id, name, calories} = this.props;
+
         let header = (
 
             <Header>
+                <Box basis="full" align="center">
                 <Heading strong={true}
                          tag='h3'>
-                    {name + ' ' + calories + 'kcal'}
+                    {name}
                 </Heading>
-                <Box
-                    flex={true}
-                    justify='end'
-                    align="center"
-                    pad={{between: "medium"}}
-                    direction='row'>
                 </Box>
             </Header>
         );
+        let description = (
+            <Box
+                flex={true}
+                justify='center'
+                align="center"
+                pad={{between: "medium"}}
+                direction='row'>
+                <Value value={calories}
+                       units='kcal'
+                       size="small"
+                />
+                <Value value={GetShitDone.caloriesToPrice(id, this.props.foods)}
+                       units='gold'
+                       size="small"/>
+            </Box>
+        );
         let link=(
+            <Box align="center" pad="large">
             <Anchor icon={<CreditCard />}
                     label="Buy this"
                     onClick={()=>{{this.props.onBuy({id, name, calories})}}}
                     primary={true}
                     animateIcon={true} />
+            </Box>
         );
         return (
-            <Card margin="medium" colorIndex="light-1" key={this.props.name} link={link} heading={header}
+            <Card className="drop-shadow" margin="medium" description={description} colorIndex="light-1" key={this.props.name} link={link} heading={header}
             />
         )
     }
 }
+export default createContainer(() => {
+    Meteor.subscribe('foods');
+    return {
+        foods: Food.find({}).fetch()
+    }
+}, FoodCard);
 
