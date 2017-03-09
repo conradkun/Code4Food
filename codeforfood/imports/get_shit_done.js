@@ -131,15 +131,16 @@ function subQuestValue(subQuestId,subQuests,quests,pantry){
     return output;
 }
 function caloriesToPrice(id,pantry){
+    let p=4
     let x=minCalories(pantry);
     let y=maxCalories(pantry);
     if (x==y){
         return getItem(id,pantry).calories * 0.12;
     }
     let cal=getItem(id,pantry).calories;
-    let a=(2*y-x)/(Math.pow((y-x),2));
+    let a=(p*y-x)/(Math.pow((y-x),2));
     let b=-2*x*a;
-    let c=(x*Math.pow(y,2))/Math.pow((y-x),2);
+    let c=(1-b)*x-a*Math.pow(x,2);
     return Math.ceil(0.10 * (a*Math.pow(cal,2)+b*cal+c));
 }
 
