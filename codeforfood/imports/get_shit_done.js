@@ -1,4 +1,5 @@
 /*
+ LICENSE: GNU LGPLv3 (In Directory as COPYING.LESSER)
  quest = {id name difficulty duration user}
  pantry = {id name calories}
  subquest = {id questId name difficulty duration user}
