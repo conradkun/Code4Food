@@ -1,7 +1,13 @@
 # Stakhacks
 Code 4 Food
-###Run :
+
+### Run :
+```
 npm install
 meteor
-###Deploy:
+```
+
+### Deploy:
+```
 cd .deploy &amp;&amp; mup deploy
+```
