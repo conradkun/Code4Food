@@ -7,7 +7,3 @@ npm install
 meteor
 ```
 
-### Deploy:
-```
-cd .deploy &amp;&amp; mup deploy
-```
