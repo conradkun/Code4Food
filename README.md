@@ -1,4 +1,4 @@
-#Stakhacks
+# Code for Food
 
 Ignore /Lambda (it was an attempt at Amazon Alexa)
 Follow the instructions in codeforfood to install
